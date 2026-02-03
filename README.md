@@ -20,7 +20,7 @@ Frontend (Web App) <br>
 ↓ <br>
 Backend API <-> Database<br>
 ↓ <br>
-T212 API
+[Trading 212 Public API](https://docs.trading212.com/api)
 
 - The frontend never communicates directly with Trading 212 or the database
 - All Trading 212 API calls are handled by the backend
