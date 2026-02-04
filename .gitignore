@@ -1,3 +1,4 @@
 auth.txt
 .env
 go.mod
+go.sum

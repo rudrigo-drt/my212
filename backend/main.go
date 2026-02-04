@@ -2,35 +2,29 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
-	"os"
+
+	"main/internal/config"
 )
 
 func main() {
-	apiKeyUsername := os.Getenv("API_KEY_USERNAME")
-	apiKeyPassword := os.Getenv("API_KEY_PASSWORD")
-
-	if apiKeyUsername == "" {
-		panic("TRADING212_API_KEY_USERNAME not defined")
-	}
-
-	if apiKeyPassword == "" {
-		panic("TRADING212_API_KEY_PASSWORD not defined")
-	}
+	cfg := config.Load()
 
 	reqUrl := "https://live.trading212.com/api/v0/equity/account/summary"
 	req, err := http.NewRequest("GET", reqUrl, nil)
 	if err != nil {
 		panic(err)
 	}
-	req.SetBasicAuth(apiKeyUsername, apiKeyPassword)
+
+	req.SetBasicAuth(cfg.APIKeyUsername, cfg.APIKeyPassword)
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
 		panic(err)
 	}
+
 	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		panic(err)
 	}
