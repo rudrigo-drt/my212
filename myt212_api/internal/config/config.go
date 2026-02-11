@@ -11,6 +11,7 @@ type Config struct {
 	AppEnv         string
 	APIKeyUsername string
 	APIKeyPassword string
+	Address        string
 }
 
 func Load() Config {
@@ -36,6 +37,10 @@ func Load() Config {
 
 	if cfg.AppEnv == "" {
 		cfg.AppEnv = "dev"
+	}
+
+	if cfg.AppEnv == "dev" {
+		cfg.Address = ":8080"
 	}
 
 	log.Println("Configuration loaded successfully")
